@@ -1,0 +1,7 @@
+#!/bin/bash
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+
+echo -e "==== Running code analyzer ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phploc ${SCRIPTPATH}/../app/ --log-xml=${SCRIPTPATH}/../tests/phploc-report.xml
+echo -e "==== Running code analyzer DONE ====\n"

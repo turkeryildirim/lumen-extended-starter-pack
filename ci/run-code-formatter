@@ -1,0 +1,12 @@
+#!/bin/bash
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+
+echo -e "==== Running code formatter ====\n"
+echo -e "==== APP FOLDER ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phpcbf --standard=PSR2 ${SCRIPTPATH}/../app/
+echo -e "==== DATABASE FOLDER ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phpcbf --standard=PSR2 ${SCRIPTPATH}/../database/
+echo -e "==== TESTS FOLDER ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phpcbf --standard=PSR2 ${SCRIPTPATH}/../tests/phpunit/
+echo -e "==== Running code formatter DONE ====\n"

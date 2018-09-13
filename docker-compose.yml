@@ -1,0 +1,100 @@
+version: "3"
+services:
+  mail_server:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    container_name: "mail_server"
+    restart: always
+    extra_hosts:
+      - "mail_server:127.0.0.1"
+    networks:
+        pabeda:
+            ipv4_address: 10.5.0.2
+  queue_server:
+    image: turkeryildirim/beanstalkd:latest
+    ports:
+      - "11300:11300"
+      - "3000:3000"
+    container_name: "queue_server"
+    restart: always
+    extra_hosts:
+      - "queue_server:127.0.0.1"
+    networks:
+        pabeda:
+            ipv4_address: 10.5.0.3
+  cache_server:
+    image: redis:4-alpine
+    volumes:
+      - ./storage/framework/cache:/data:rw
+    ports:
+      - "6379:6379"
+    container_name: "cache_server"
+    restart: always
+    command: redis-server --appendonly yes
+    extra_hosts:
+      - "cache_server:127.0.0.1"
+    networks:
+        pabeda:
+            ipv4_address: 10.5.0.4
+  mysql_server:
+    image: mysql:5.7
+    volumes:
+      - ./storage/data:/var/lib/mysql:rw
+    ports:
+      - "3306:3306"
+    container_name: "mysql_server"
+    restart: always
+    extra_hosts:
+      - "mysql_server:127.0.0.1"
+    environment:
+        - MYSQL_HOST_NAME=mysql_server
+        - MYSQL_USER=test
+        - MYSQL_DATABASE=lumen
+        - MYSQL_PASSWORD=123456
+        - MYSQL_ROOT_PASSWORD=123456
+    networks:
+        pabeda:
+            ipv4_address: 10.5.0.5
+  web_server:
+    image: turkeryildirim/apache:latest
+    volumes:
+      - ./:/var/www/localhost/:rw
+      - ./htdocs:/var/www/localhost/htdocs:rw
+    ports:
+      - "80:80"
+      - "443:443"
+    container_name: "web_server"
+    extra_hosts:
+      - "web_server:127.0.0.1"
+      - "mail_server:10.5.0.2"
+      - "queue_server:10.5.0.3"
+      - "cache_server:10.5.0.4"
+      - "mysql_server:10.5.0.5"
+    restart: always
+    env_file: .env
+    environment:
+        XDEBUG_CONFIG: remote_host=10.0.5.1
+    networks:
+        pabeda:
+            ipv4_address: 10.5.0.6
+    depends_on:
+      - mail_server
+      - queue_server
+      - cache_server
+      - mysql_server
+    links:
+      - mail_server
+      - queue_server
+      - cache_server
+      - mysql_server
+networks:
+  pabeda:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+
+
+   

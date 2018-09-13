@@ -1,0 +1,10 @@
+#!/bin/bash
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+
+echo -e "==== Running code sniffer ====\n"
+echo -e "==== APP FOLDER ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phpcs -p -d error_reporting="E_ERROR" --standard=PSR2 -w --colors ${SCRIPTPATH}/../app/
+echo -e "==== DATABASE FOLDER ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phpcs -p -d error_reporting="E_ERROR" --standard=PSR2 -w --colors ${SCRIPTPATH}/../database/
+echo -e "==== Running code DONE ====\n"

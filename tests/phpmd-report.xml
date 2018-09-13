@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pmd version="@project.version@" timestamp="2018-09-13T17:49:25+03:00">
+  <file name="/home/turker/web/simple-lumen-boilerplate/app/Policies/UserPolicy.php">
+    <violation beginline="34" endline="37" rule="BooleanGetMethodName" ruleset="Naming Rules" package="App\Policies" externalInfoUrl="http://phpmd.org/rules/naming.html#booleangetmethodname" class="UserPolicy" method="get" priority="4">
+      The 'get()' method which returns a boolean should be named 'is...()' or 'has...()'
+    </violation>
+  </file>
+  <file name="/home/turker/web/simple-lumen-boilerplate/app/Services/PushNotificationService.php">
+    <violation beginline="104" endline="104" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+      Avoid unused local variables such as '$client'.
+    </violation>
+    <violation beginline="111" endline="111" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+      Avoid unused local variables such as '$request_data'.
+    </violation>
+  </file>
+  <file name="/home/turker/web/simple-lumen-boilerplate/app/Services/SmsService.php">
+    <violation beginline="87" endline="87" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+      Avoid unused local variables such as '$client'.
+    </violation>
+    <violation beginline="95" endline="95" rule="UnusedLocalVariable" ruleset="Unused Code Rules" externalInfoUrl="http://phpmd.org/rules/unusedcode.html#unusedlocalvariable" priority="3">
+      Avoid unused local variables such as '$request_data'.
+    </violation>
+  </file>
+</pmd>

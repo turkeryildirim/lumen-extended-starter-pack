@@ -1,0 +1,10 @@
+#!/bin/bash
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+
+export XDEBUG_CONFIG="idekey=PHPSTORM"
+export PHP_IDE_CONFIG="serverName=web_server_cli"
+
+echo -e "==== Running unit tests ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phpunit --configuration=${SCRIPTPATH}/../phpunit.xml
+echo -e "==== Running unit tests DONE ====\n"

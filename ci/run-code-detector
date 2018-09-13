@@ -1,0 +1,11 @@
+#!/bin/bash
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+
+echo -e "==== Running mass detector ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phpmd ${SCRIPTPATH}/../app/ xml ${SCRIPTPATH}/../phpmd.xml --reportfile ${SCRIPTPATH}/../tests/phpmd-report.xml --suffixes php
+echo -e "==== Running mass detector DONE ====\n"
+
+echo -e "==== Running copy paste detector ====\n"
+php ${SCRIPTPATH}/../vendor/bin/phpcpd ${SCRIPTPATH}/../app/ --log-pmd=${SCRIPTPATH}/../tests/phpcpd-report.xml
+echo -e "==== Running copy paste DONE ====\n"
